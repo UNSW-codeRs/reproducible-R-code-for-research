@@ -1,0 +1,49 @@
+digraph G {
+    
+    node [shape="box" width=2]
+    subgraph cluster_res { 
+        label="Research Life Cycle"
+        subgraph cluster_steps {
+          label=""
+          pencolor=transparent
+          H [label="Hypothesis" shape="ellipse"]
+          A [label="Sampling\nor Experimental\nDesign"]
+          orig_data [label="Data"]
+          orig_results [label="Results"]
+          orig_output [label="Outputs"]
+          subgraph cluster_code { 
+              bgcolor="lightblue"
+              label="Code"
+              labelloc="b"
+              xplr_code [label="Exploratory analysis"]
+              xpln_code [label="Explanatory analysis"]
+              dviz_code [label="Visualisation of results"]
+          }
+        }
+      { 
+        node [color="orange" style="filled" shape="egg"]
+        peer_review [label="Peer review"]
+        supervisor [label="Supervisor"]
+        collaborator [label="Collaborators"]
+    }
+    }
+   
+    H -> A
+    H -> xpln_code
+    A -> orig_data -> xplr_code 
+    xplr_code -> H [style="dashed"]
+    xplr_code -> orig_results  [style="dashed"]
+    orig_data -> xpln_code
+    xpln_code -> orig_results
+    orig_results -> {dviz_code; orig_output}
+    
+    supervisor -> H [style="dotted"]
+    supervisor -> xpln_code [style="dotted"]
+    // orig_results -> {collaborator,supervisor}
+    collaborator -> orig_data [style="dotted"]
+    collaborator -> xplr_code [style="dotted"]
+    orig_output -> peer_review
+    peer_review -> xpln_code [style="dotted"]
+    peer_review -> dviz_code [style="dotted"]
+    peer_review -> H [style="dotted"]
+}

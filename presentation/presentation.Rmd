@@ -1,0 +1,321 @@
+---
+title: "Preparing R code for reproducible research"
+subtitle: "CES Skills Seminars"  
+author: 
+  - "José R. Ferrer-Paris" 
+  - "(a.k.a. Jose Ferrer; JR)"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+library(DiagrammeR)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#1381B0",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+## Reproducible research
+
+
+> Research is reproducible when others can reproduce the results of a scientific study given only the original data, code, and documentation 
+([Alston & Rick 2021](https://doi.org/10.1002/bes2.1801))
+
+---
+
+.center[
+One step towards replicability ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753)): ]
+
+<center>
+```{r, echo=FALSE, out.width = "47%", out.height="47%"}
+grViz("../figs/replicable-research.dot")
+```
+</center>
+
+---
+
+## Reproducible code
+
+#### Expectations: 
+
+> Can be run by **any user** with **any data** and in **any computer/environment**.
+
+--
+
+#### More realistic: 
+
+> Can be run by **a target user** with **well formatted data** and in **any reasonable computer/environment** by following **well documented instructions**.
+
+--
+
+#### More important: 
+
+> It helps to be **more efficient** and **mitigate common problems** in research (and your research life...)
+
+---
+class: inverse center middle
+
+# Reproducible code makes your life*** easier
+
+.footnote[*** at least your research life]
+
+---
+name: futureyou
+
+## Meet your target user
+
+--
+.pull-left[
+<center><img src="https://i.etsystatic.com/10346065/r/il/8e851e/1446873591/il_794xN.1446873591_guys.jpg" alt="Do something today that your future self will Thank You for" height="400px" /></center>
+
+
+]
+
+.pull-right[
+- You !
+
+- Your Future Self !!
+
+- Maybe others like 
+
+  - Your supervisor / team mates
+
+  - Other students / researchers
+
+  - Reviewers? / Future employers?
+]
+
+---
+
+### Research lifecycle
+
+<center>
+```{r, echo=FALSE, out.width = "70%", out.height="60%"}
+grViz("../figs/research-life-cycle.dot")
+```
+</center>
+
+
+---
+
+### This usually means: 
+
+.pull-left[
+
+*You* will probably need to (re-)run *your* code each time...
+
+- your data changes:
+  - new experiments/field work,
+  - error fixes
+- your analysis changes:
+  - new questions, hypothesis?
+  - reviewer feedback
+- your outputs change, e.g.:
+  - request from journal editors,
+  - figures for presentations vs. publication
+]
+
+.pull-right[
+> **You** want your code to:
+>
+> - work with [new / modified data](#newdata)
+> 
+> - be modular and flexible  (add or change single steps)
+>
+> - be customizable (new colors, new plots, etc)
+]
+
+---
+
+### Bonus benefits:
+
+Your reproducible code will help **other user** to run the analysis again: 
+
+- with your data (or sample datasets) to verify it works
+
+- with their own data 
+
+- with available data from another source
+
+
+
+---
+class: inverse center middle
+
+# Reproducible code helps you in case of emergency
+
+---
+name: portability
+
+## "Runnability" (or Portability)
+
+.pull-left[
+<iframe src="https://giphy.com/embed/xHKiX7icn98SA" width="480" height="320" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/xHKiX7icn98SA">via GIPHY</a></p>
+]
+.pull-right[
+Do you have **working** back-ups of all your data and code?
+]
+---
+.pull-left[
+<blockquote class="twitter-tweet" data-lang="en" data-dnt="true" data-theme="light"><p lang="en" dir="ltr">When it’s time to go home but your code isn’t done running. <a href="https://twitter.com/hashtag/RStats?src=hash&amp;ref_src=twsrc%5Etfw">#RStats</a> <a href="https://t.co/cuhlQ8mKFF">pic.twitter.com/cuhlQ8mKFF</a></p>&mdash; Matt Cheng (@MLCheng3) <a href="https://twitter.com/MLCheng3/status/1452403381021020161?ref_src=twsrc%5Etfw">October 24, 2021</a></blockquote> 
+]
+
+.pull-right[
+
+Can you ***take your code anywhere*** you want?
+
+]
+---
+
+### Portability means:
+
+.pull-left[
+*You* probably need to run *your* code:
+
+- at home and in the office (Laptop vs. Desktop)
+
+- remotely: in the Cloud or a HPC
+
+- after any hardware and software upgrades
+
+]
+
+.pull-right[
+
+> **You** want to document how your code:
+>
+> - works with specific operating systems + sofware versions
+> 
+> - can be adapted to other OS + software versions
+>
+> - can be used as a template for alternative solutions 
+
+]
+
+---
+
+### Bonus benefits:
+
+Your reproducible and portable code will help **other user** to run the analysis again: 
+
+- In completely different OS
+
+- Different hardware configurations
+
+- Different software combinations (older or newer versions)
+
+---
+class: inverse center middle
+
+# Reproducible code can make you famous***
+
+.footnote[*** not really, but near enough...]
+
+---
+layout: true
+## Documentation
+---
+
+.pull-left[
+<iframe src="https://giphy.com/embed/56ikf9jD4ZK6s" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/game-of-thrones-56ikf9jD4ZK6s">via GIPHY</a></p>
+]
+
+.pull-right[
+
+Add comments and notes to your code.
+
+Keep a good documentation for your future self!
+
+]
+---
+
+.pull-left[
+
+- *You* often need to run *older* code
+
+- *You* might need to start new projects based on older projects 
+
+- *You* might encounter the same problem(s) again and again
+
+]
+
+.pull-left[
+> You need to:
+> - Describe all steps as best as you can !
+> - Explain: 
+>   - purpose, 
+>   - expected inputs and outputs,
+> - Include: 
+>   - requirements, 
+>   - assumed knowledge, 
+>   - software versions, etc
+
+]
+
+---
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cDA3_5982h8?start=12" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</center>
+
+---
+layout:false
+
+### Bonus benefits:
+
+.pull-left[
+
+Your amazing documentation will help **other users** : 
+
+- follow your analysis with minimal instructions 
+
+- learn from your mistakes and clever solutions
+
+- reuse parts of your code for other purposes
+
+***They will*** use and reuse your code, become your followers, cite your papers, fork your repos, ...
+]
+
+.pull-right[
+
+<iframe src="https://giphy.com/embed/UBVE6ZGaZDX7a" width="480" height="472" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/good-httyd-UBVE6ZGaZDX7a">via GIPHY</a></p>
+
+]
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R packages:
+
+[**xaringan**](https://github.com/yihui/xaringan)<br>
+[gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)

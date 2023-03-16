@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Preparing R code for reproducible research</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="José R. Ferrer-Paris" />
+    <meta name="author" content="(a.k.a. Jose Ferrer; JR)" />
+    <meta name="date" content="2023-03-17" />
+    <script src="presentation_files/header-attrs/header-attrs.js"></script>
+    <script src="presentation_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="presentation_files/viz/viz.js"></script>
+    <link href="presentation_files/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="presentation_files/grViz-binding/grViz.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Preparing R code for reproducible research
+]
+.subtitle[
+## CES Skills Seminars
+]
+.author[
+### José R. Ferrer-Paris
+]
+.author[
+### (a.k.a. Jose Ferrer; JR)
+]
+.date[
+### 2023-03-17
+]
+
+---
+
+
+
+
+
+
+## Reproducible research
+
+
+&gt; Research is reproducible when others can reproduce the results of a scientific study given only the original data, code, and documentation 
+([Alston &amp; Rick 2021](https://doi.org/10.1002/bes2.1801))
+
+---
+
+.center[
+One step towards replicability ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753)): ]
+
+&lt;center&gt;
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2b4354444be7f86a3c76" style="width:47%;height:47%;"></div>
+<script type="application/json" data-for="htmlwidget-2b4354444be7f86a3c76">{"x":{"diagram":"graph G {\n    layout=dot\n    rankdir=\"TB\"\n    node [shape=\"box\" width=2]\n    subgraph cluster_repl { \n        label=\"Replicable research\"\n        subgraph cluster_orig { \n          label=\"Original research\"\n          A [label=\"Sampling\\nor Experimental\\nDesign\"]\n            subgraph cluster_repr { \n                bgcolor=\"lightblue\"\n                label=\"Reproducible research\"\n                labelloc=\"t\"\n                orig_data [label=\"Data\"]\n                orig_doc [shape=\"egg\" label=\"Documentation\"]\n                orig_code [label=\"Analysis (Code)\"]\n                orig_data -- orig_code //-- {orig_results}\n                orig_doc -- {orig_code} [style=\"dashed\"]\n                }\n            orig_results [label=\"Results\"]\n        }\n      subgraph cluster_repr1 { \n        labelloc=\"t\"\n        bgcolor=\"orange\"\n        label=\"Independent\\nReplication\"\n        B [label=\"New Sample\\nor Experiment\"]\n        new_data [label=\"New Data\"]\n        new_code [label=\"Same Analysis\" style=\"dashed\"]\n        new_data -- new_code  \n        new_results [label=\"Consistent Results\"]\n      }\n    }\n    new_code -- new_results \n    orig_code -- orig_results\n    //orig_code -- new_results\n    A -- orig_data\n    B -- new_data \n    // A -- B [style=\"dashed\"]\n    // new_data -- orig_code [style=\"dashed\"]\n    new_results -- orig_results [style=\"invisible\"]  \n    new_data -- orig_data [style=\"invisible\"]\n    new_code -- orig_code [style=\"invisible\"]\n    orig_code -- new_code [style=\"dashed\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+&lt;/center&gt;
+
+---
+
+## Reproducible code
+
+#### Expectations: 
+
+&gt; Can be run by **any user** with **any data** and in **any computer/environment**.
+
+--
+
+#### More realistic: 
+
+&gt; Can be run by **a target user** with **well formatted data** and in **any reasonable computer/environment** by following **well documented instructions**.
+
+--
+
+#### More important: 
+
+&gt; It helps to be **more efficient** and **mitigate common problems** in research (and your research life...)
+
+---
+class: inverse center middle
+
+# Reproducible code makes your life*** easier
+
+.footnote[*** at least your research life]
+
+---
+name: futureyou
+
+## Meet your target user
+
+--
+.pull-left[
+&lt;center&gt;&lt;img src="https://i.etsystatic.com/10346065/r/il/8e851e/1446873591/il_794xN.1446873591_guys.jpg" alt="Do something today that your future self will Thank You for" height="400px" /&gt;&lt;/center&gt;
+
+
+]
+
+.pull-right[
+- You !
+
+- Your Future Self !!
+
+- Maybe others like 
+
+  - Your supervisor / team mates
+
+  - Other students / researchers
+
+  - Reviewers? / Future employers?
+]
+
+---
+
+### Research lifecycle
+
+&lt;center&gt;
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1025c4f8eee13fa43043" style="width:70%;height:60%;"></div>
+<script type="application/json" data-for="htmlwidget-1025c4f8eee13fa43043">{"x":{"diagram":"digraph G {\n    \n    node [shape=\"box\" width=2]\n    subgraph cluster_res { \n        label=\"Research Life Cycle\"\n        subgraph cluster_steps {\n          label=\"\"\n          pencolor=transparent\n          H [label=\"Hypothesis\" shape=\"ellipse\"]\n          A [label=\"Sampling\\nor Experimental\\nDesign\"]\n          orig_data [label=\"Data\"]\n          orig_results [label=\"Results\"]\n          orig_output [label=\"Outputs\"]\n          subgraph cluster_code { \n              bgcolor=\"lightblue\"\n              label=\"Code\"\n              labelloc=\"b\"\n              xplr_code [label=\"Exploratory analysis\"]\n              xpln_code [label=\"Explanatory analysis\"]\n              dviz_code [label=\"Visualisation of results\"]\n          }\n        }\n      { \n        node [color=\"orange\" style=\"filled\" shape=\"egg\"]\n        peer_review [label=\"Peer review\"]\n        supervisor [label=\"Supervisor\"]\n        collaborator [label=\"Collaborators\"]\n    }\n    }\n   \n    H -> A\n    H -> xpln_code\n    A -> orig_data -> xplr_code \n    xplr_code -> H [style=\"dashed\"]\n    xplr_code -> orig_results  [style=\"dashed\"]\n    orig_data -> xpln_code\n    xpln_code -> orig_results\n    orig_results -> {dviz_code; orig_output}\n    \n    supervisor -> H [style=\"dotted\"]\n    supervisor -> xpln_code [style=\"dotted\"]\n    // orig_results -> {collaborator,supervisor}\n    collaborator -> orig_data [style=\"dotted\"]\n    collaborator -> xplr_code [style=\"dotted\"]\n    orig_output -> peer_review\n    peer_review -> xpln_code [style=\"dotted\"]\n    peer_review -> dviz_code [style=\"dotted\"]\n    peer_review -> H [style=\"dotted\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+&lt;/center&gt;
+
+
+---
+
+### This usually means: 
+
+.pull-left[
+
+*You* will probably need to (re-)run *your* code each time...
+
+- your data changes:
+  - new experiments/field work,
+  - error fixes
+- your analysis changes:
+  - new questions, hypothesis?
+  - reviewer feedback
+- your outputs change, e.g.:
+  - request from journal editors,
+  - figures for presentations vs. publication
+]
+
+.pull-right[
+&gt; **You** want your code to:
+&gt;
+&gt; - work with [new / modified data](#newdata)
+&gt; 
+&gt; - be modular and flexible  (add or change single steps)
+&gt;
+&gt; - be customizable (new colors, new plots, etc)
+]
+
+---
+
+### Bonus benefits:
+
+Your reproducible code will help **other user** to run the analysis again: 
+
+- with your data (or sample datasets) to verify it works
+
+- with their own data 
+
+- with available data from another source
+
+
+
+---
+class: inverse center middle
+
+# Reproducible code helps you in case of emergency
+
+---
+name: portability
+
+## "Runnability" (or Portability)
+
+.pull-left[
+&lt;iframe src="https://giphy.com/embed/xHKiX7icn98SA" width="480" height="320" frameBorder="0" class="giphy-embed" allowFullScreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;a href="https://giphy.com/gifs/xHKiX7icn98SA"&gt;via GIPHY&lt;/a&gt;&lt;/p&gt;
+]
+.pull-right[
+Do you have **working** back-ups of all your data and code?
+]
+---
+.pull-left[
+&lt;blockquote class="twitter-tweet" data-lang="en" data-dnt="true" data-theme="light"&gt;&lt;p lang="en" dir="ltr"&gt;When it’s time to go home but your code isn’t done running. &lt;a href="https://twitter.com/hashtag/RStats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#RStats&lt;/a&gt; &lt;a href="https://t.co/cuhlQ8mKFF"&gt;pic.twitter.com/cuhlQ8mKFF&lt;/a&gt;&lt;/p&gt;&amp;mdash; Matt Cheng (@MLCheng3) &lt;a href="https://twitter.com/MLCheng3/status/1452403381021020161?ref_src=twsrc%5Etfw"&gt;October 24, 2021&lt;/a&gt;&lt;/blockquote&gt; 
+]
+
+.pull-right[
+
+Can you ***take your code anywhere*** you want?
+
+]
+---
+
+### Portability means:
+
+.pull-left[
+*You* probably need to run *your* code:
+
+- at home and in the office (Laptop vs. Desktop)
+
+- remotely: in the Cloud or a HPC
+
+- after any hardware and software upgrades
+
+]
+
+.pull-right[
+
+&gt; **You** want to document how your code:
+&gt;
+&gt; - works with specific operating systems + sofware versions
+&gt; 
+&gt; - can be adapted to other OS + software versions
+&gt;
+&gt; - can be used as a template for alternative solutions 
+
+]
+
+---
+
+### Bonus benefits:
+
+Your reproducible and portable code will help **other user** to run the analysis again: 
+
+- In completely different OS
+
+- Different hardware configurations
+
+- Different software combinations (older or newer versions)
+
+---
+class: inverse center middle
+
+# Reproducible code can make you famous***
+
+.footnote[*** not really, but near enough...]
+
+---
+layout: true
+## Documentation
+---
+
+.pull-left[
+&lt;iframe src="https://giphy.com/embed/56ikf9jD4ZK6s" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;a href="https://giphy.com/gifs/game-of-thrones-56ikf9jD4ZK6s"&gt;via GIPHY&lt;/a&gt;&lt;/p&gt;
+]
+
+.pull-right[
+
+Add comments and notes to your code.
+
+Keep a good documentation for your future self!
+
+]
+---
+
+.pull-left[
+
+- *You* often need to run *older* code
+
+- *You* might need to start new projects based on older projects 
+
+- *You* might encounter the same problem(s) again and again
+
+]
+
+.pull-left[
+&gt; You need to:
+&gt; - Describe all steps as best as you can !
+&gt; - Explain: 
+&gt;   - purpose, 
+&gt;   - expected inputs and outputs,
+&gt; - Include: 
+&gt;   - requirements, 
+&gt;   - assumed knowledge, 
+&gt;   - software versions, etc
+
+]
+
+---
+
+&lt;center&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/cDA3_5982h8?start=12" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+---
+layout:false
+
+### Bonus benefits:
+
+.pull-left[
+
+Your amazing documentation will help **other users** : 
+
+- follow your analysis with minimal instructions 
+
+- learn from your mistakes and clever solutions
+
+- reuse parts of your code for other purposes
+
+***They will*** use and reuse your code, become your followers, cite your papers, fork your repos, ...
+]
+
+.pull-right[
+
+&lt;iframe src="https://giphy.com/embed/UBVE6ZGaZDX7a" width="480" height="472" frameBorder="0" class="giphy-embed" allowFullScreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;a href="https://giphy.com/gifs/good-httyd-UBVE6ZGaZDX7a"&gt;via GIPHY&lt;/a&gt;&lt;/p&gt;
+
+]
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R packages:
+
+[**xaringan**](https://github.com/yihui/xaringan)&lt;br&gt;
+[gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+graph G {
+    layout=dot
+    rankdir="TB"
+    node [shape="box" width=2]
+    subgraph cluster_repl { 
+        label="Replicable research"
+        subgraph cluster_orig { 
+          label="Original research"
+          A [label="Sampling\nor Experimental\nDesign"]
+            subgraph cluster_repr { 
+                bgcolor="lightblue"
+                label="Reproducible research"
+                labelloc="t"
+                orig_data [label="Data"]
+                orig_doc [shape="egg" label="Documentation"]
+                orig_code [label="Analysis (Code)"]
+                orig_data -- orig_code //-- {orig_results}
+                orig_doc -- {orig_code} [style="dashed"]
+                }
+            orig_results [label="Results"]
+        }
+      subgraph cluster_repr1 { 
+        labelloc="t"
+        bgcolor="orange"
+        label="Independent\nReplication"
+        B [label="New Sample\nor Experiment"]
+        new_data [label="New Data"]
+        new_code [label="Same Analysis" style="dashed"]
+        new_data -- new_code  
+        new_results [label="Consistent Results"]
+      }
+    }
+    new_code -- new_results 
+    orig_code -- orig_results
+    //orig_code -- new_results
+    A -- orig_data
+    B -- new_data 
+    // A -- B [style="dashed"]
+    // new_data -- orig_code [style="dashed"]
+    new_results -- orig_results [style="invisible"]  
+    new_data -- orig_data [style="invisible"]
+    new_code -- orig_code [style="invisible"]
+    orig_code -- new_code [style="dashed"]
+    
+}

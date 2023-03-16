@@ -1,0 +1,32 @@
+graph G {
+    layout=dot
+    node [shape="box" width=2]
+    subgraph cluster_repl { 
+        label="Replicable research"
+        A [label="Sampling\nor Experimental\nDesign"]
+    subgraph cluster_repr { 
+        bgcolor="lightblue"
+        label="Reproducible research"
+        labelloc="b"
+        orig_data [label="Data"]
+        orig_code [label="Code"]
+        orig_doc [label="Documentation"]
+    }
+    }
+    subgraph cluster_repr1 { 
+        labelloc="t"
+        bgcolor="orange"
+        label="Independent\nReplication"
+        new_data [label="New Data"]
+    }
+    subgraph cluster_repr2 { 
+        bgcolor="orange"
+        label="Peer review"
+        rev_code [label="Improvements\n and modification" fixedsize=true width=2]
+        rev_doc [label="Easier for reviewers"]
+    }
+    A -- orig_data -- orig_code -- orig_doc
+    A -- new_data -- orig_code [style="dashed"]
+    rev_code -- orig_code [style="dashed"]
+    rev_doc -- orig_doc [style="dashed"]
+}
