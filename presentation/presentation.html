@@ -47,7 +47,7 @@ layout: true
 width: 110px;
 height: 128px;
 z-index: 0;
-background-image: url(https://unsw-coders.netlify.app/home/welcome_files/logo.png);
+background-image: url(img/ces-logo.png);
 background-size: contain;
 background-repeat: no-repeat;
 position: absolute;
@@ -164,8 +164,8 @@ name: futureyou
 ### Research lifecycle
 
 &lt;center&gt;
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fb52d1a93dfc99f380c8" style="width:70%;height:60%;"></div>
-<script type="application/json" data-for="htmlwidget-fb52d1a93dfc99f380c8">{"x":{"diagram":"digraph G {\n    \n    node [shape=\"box\" width=2]\n    subgraph cluster_res { \n        label=\"Research Life Cycle\"\n        subgraph cluster_steps {\n          label=\"\"\n          pencolor=transparent\n          H [label=\"Hypothesis\" shape=\"ellipse\"]\n          A [label=\"Sampling\\nor Experimental\\nDesign\"]\n          orig_data [label=\"Data\"]\n          orig_results [label=\"Results\"]\n          orig_output [label=\"Outputs\"]\n          subgraph cluster_code { \n              bgcolor=\"lightblue\"\n              label=\"Code\"\n              labelloc=\"b\"\n              xplr_code [label=\"Exploratory analysis\"]\n              xpln_code [label=\"Explanatory analysis\"]\n              dviz_code [label=\"Visualisation of results\"]\n          }\n        }\n      { \n        node [color=\"orange\" style=\"filled\" shape=\"egg\"]\n        peer_review [label=\"Peer review\"]\n        supervisor [label=\"Supervisor\"]\n        collaborator [label=\"Collaborators\"]\n    }\n    }\n   \n    H -> A\n    H -> xpln_code\n    A -> orig_data -> xplr_code \n    xplr_code -> H [style=\"dashed\"]\n    xplr_code -> orig_results  [style=\"dashed\"]\n    orig_data -> xpln_code\n    xpln_code -> orig_results\n    orig_results -> {dviz_code; orig_output}\n    \n    supervisor -> H [style=\"dotted\"]\n    supervisor -> xpln_code [style=\"dotted\"]\n    // orig_results -> {collaborator,supervisor}\n    collaborator -> orig_data [style=\"dotted\"]\n    collaborator -> xplr_code [style=\"dotted\"]\n    orig_output -> peer_review\n    peer_review -> xpln_code [style=\"dotted\"]\n    peer_review -> dviz_code [style=\"dotted\"]\n    peer_review -> H [style=\"dotted\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-015727a9b2a0d3d1c851" style="width:70%;height:60%;"></div>
+<script type="application/json" data-for="htmlwidget-015727a9b2a0d3d1c851">{"x":{"diagram":"digraph G {\n    \n    node [shape=\"box\" width=2]\n    subgraph cluster_res { \n        label=\"Research Life Cycle\"\n        subgraph cluster_steps {\n          label=\"\"\n          pencolor=transparent\n          H [label=\"Hypothesis\" shape=\"ellipse\"]\n          A [label=\"Sampling\\nor Experimental\\nDesign\"]\n          orig_data [label=\"Data\"]\n          orig_results [label=\"Results\"]\n          orig_output [label=\"Outputs\"]\n          subgraph cluster_code { \n              bgcolor=\"lightblue\"\n              label=\"Code\"\n              labelloc=\"b\"\n              xplr_code [label=\"Exploratory analysis\"]\n              xpln_code [label=\"Explanatory analysis\"]\n              dviz_code [label=\"Visualisation of results\"]\n          }\n        }\n      { \n        node [color=\"orange\" style=\"filled\" shape=\"egg\"]\n        peer_review [label=\"Peer review\"]\n        supervisor [label=\"Supervisor\"]\n        collaborator [label=\"Collaborators\"]\n    }\n    }\n   \n    H -> A\n    H -> xpln_code\n    A -> orig_data -> xplr_code \n    xplr_code -> H [style=\"dashed\"]\n    xplr_code -> orig_results  [style=\"dashed\"]\n    orig_data -> xpln_code\n    xpln_code -> orig_results\n    orig_results -> {dviz_code; orig_output}\n    \n    supervisor -> H [style=\"dotted\"]\n    supervisor -> xpln_code [style=\"dotted\"]\n    // orig_results -> {collaborator,supervisor}\n    collaborator -> orig_data [style=\"dotted\"]\n    collaborator -> xplr_code [style=\"dotted\"]\n    orig_output -> peer_review\n    peer_review -> xpln_code [style=\"dotted\"]\n    peer_review -> dviz_code [style=\"dotted\"]\n    peer_review -> H [style=\"dotted\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 &lt;/center&gt;
 
 
@@ -339,6 +339,9 @@ Keep a good documentation for your future self!
 ---
 
 &lt;center&gt;
+
+Are you sure your instructions are easy to understand and to follow?
+
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/cDA3_5982h8?start=12" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
 
@@ -415,14 +418,17 @@ Slides created by
 
 JR Ferrer-Paris 
 
-with the R packages:  
+Member of 
 
-[**xaringan**](https://github.com/yihui/xaringan) and 
-[gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
+&lt;a href='https://unsw-coders.netlify.app'&gt;&lt;img src = "https://unsw-coders.netlify.app/home/welcome_files/logo.png" height="80px" alt="Visit UNSW CodeRs website at unsw-coders.netlify.app"&gt;&lt;/a&gt;
+
+.small[Created with the R packages: [**xaringan**](https://github.com/yihui/xaringan) and 
+[gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)]
 
 Presentation and workshop material at: 
 
 [https://github.com/UNSW-codeRs/reproducible-R-code-for-research]
+
 
 
 

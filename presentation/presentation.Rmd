@@ -26,8 +26,9 @@ layout: true
 <!-- this adds the link footer to all slides, depends on my-footer class in css-->
 
 ```{r xaringan-logo, echo=FALSE}
+
 xaringanExtra::use_logo(
-  image_url = "https://unsw-coders.netlify.app/home/welcome_files/logo.png",
+  image_url = "img/ces-logo.png",
   position = xaringanExtra::css_position(top = "1em", right = "1em")
 )
 ```
@@ -394,14 +395,17 @@ Slides created by
 
 JR Ferrer-Paris 
 
-with the R packages:  
+Member of 
 
-[**xaringan**](https://github.com/yihui/xaringan) and 
+<a href='https://unsw-coders.netlify.app'><img src = "https://unsw-coders.netlify.app/home/welcome_files/logo.png" height="80px" alt="Visit UNSW CodeRs website at unsw-coders.netlify.app"></a>
+
+Created with the R packages: [**xaringan**](https://github.com/yihui/xaringan) and 
 [gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
 
 Presentation and workshop material at: 
 
 [https://github.com/UNSW-codeRs/reproducible-R-code-for-research]
+
 
 
 
