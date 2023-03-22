@@ -7,7 +7,8 @@ author:
 date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
-    css: xaringan-themer.css
+    css: [xaringan-themer.css, "css/footer.css"]
+    lib_dir: libs
     nature:
       beforeInit: "https://platform.twitter.com/widgets.js"
       slideNumberFormat: "%current%"
@@ -17,6 +18,20 @@ output:
       countIncrementalSlides: true
 editor_options: 
   chunk_output_type: console
+---
+layout: true
+
+<div class="my-footer"><span>JR Ferrer-Paris / <a href='https://github.com/UNSW-codeRs/reproducible-R-code-for-research'>reproducible-R-code-for-research</a></span></div>
+
+<!-- this adds the link footer to all slides, depends on my-footer class in css-->
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "https://unsw-coders.netlify.app/home/welcome_files/logo.png",
+  position = xaringanExtra::css_position(top = "1em", right = "1em")
+)
+```
+
 ---
 
 ```{r setup, include=FALSE}
@@ -48,36 +63,43 @@ style_duo_accent(
 > Research is reproducible when others can reproduce the results of a scientific study given only the original data, code, and documentation 
 ([Alston & Rick 2021](https://doi.org/10.1002/bes2.1801))
 
----
-
-.center[
-One step towards replicability ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753)): ]
-
-<center>
-```{r, echo=FALSE, out.width = "47%", out.height="47%"}
-grViz("../figs/replicable-research.dot")
-```
-</center>
-
----
-
-## Reproducible code
-
-#### Expectations: 
-
-> Can be run by **any user** with **any data** and in **any computer/environment**.
-
 --
 
-#### More realistic: 
-
-> Can be run by **a target user** with **well formatted data** and in **any reasonable computer/environment** by following **well documented instructions**.
+> Is one step towards replicability of your research ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753))
 
 --
 
 #### More important: 
 
 > It helps to be **more efficient** and **mitigate common problems** in research (and your research life...)
+
+<!-- 
+# commenting this out to go straight to the point
+--- 
+-->
+
+<!-- .center[ -->
+<!-- One step towards replicability ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753)): ] -->
+
+<!-- <center> -->
+<!-- ```{r, echo=FALSE, out.width = "47%", out.height="47%"} -->
+<!-- grViz("../figs/replicable-research.dot") -->
+<!-- ``` -->
+<!-- </center> -->
+
+<!-- --- -->
+
+<!-- ## Reproducible code -->
+
+<!-- #### Expectations:  -->
+
+<!-- > Can be run by **any user** with **any data** and in **any computer/environment**. -->
+
+<!-- -- -->
+
+<!-- #### More realistic:  -->
+
+<!-- > Can be run by **a target user** with **well formatted data** and in **any reasonable computer/environment** by following **well documented instructions**. -->
 
 ---
 class: inverse center middle
@@ -164,7 +186,15 @@ Your reproducible code will help **other user** to run the analysis again:
 
 - with available data from another source
 
+Your reproducible code will help **other user** to : 
 
+- combine steps of your analysis with their own steps,
+
+- explore alternative models,
+
+- customise outputs,
+
+- etc.
 
 ---
 class: inverse center middle
@@ -234,13 +264,16 @@ Your reproducible and portable code will help **other user** to run the analysis
 ---
 class: inverse center middle
 
-# Reproducible code can make you famous***
+# Well documented code will make you famous***
 
-.footnote[*** not really, but near enough...]
+.footnote[*** not really, but at least one step closer to fame...]
 
 ---
 layout: true
 ## Documentation
+
+<div class="my-footer"><span>JR Ferrer-Paris / <a href='https://github.com/UNSW-codeRs/reproducible-R-code-for-research'>reproducible-R-code-for-research</a></span></div>
+
 ---
 
 .pull-left[
@@ -286,7 +319,11 @@ Keep a good documentation for your future self!
 </center>
 
 ---
-layout:false
+layout: true
+
+<div class="my-footer"><span>JR Ferrer-Paris / <a href='https://github.com/UNSW-codeRs/reproducible-R-code-for-research'>reproducible-R-code-for-research</a></span></div>
+
+---
 
 ### Bonus benefits:
 
@@ -311,11 +348,57 @@ Your amazing documentation will help **other users** :
 
 
 ---
+class: inverse center middle
+
+# My recommendations
+
+---
+
+Make sure **your code**: 
+- is readable 
+- works with **new / modified data**
+- follows a clear structure or workflow
+- is modular and flexible 
+- is customizable
+
+--
+
+Make sure **your documentation** explains how the code:
+- works with specific operating systems + sofware versions
+- can be adapted to other OS + software versions
+- can be used as a template for alternative solutions 
+
+--
+
+Make sure **your documentation and code**:
+- work well together
+- have a clear purpose, inputs and outputs,
+- guide the target users from beginning to end
+
+
+---
+class: inverse center middle
+
+# How?
+
+---
+
 class: center, middle
 
 # Thanks!
 
-Slides created via the R packages:
+Slides created by 
 
-[**xaringan**](https://github.com/yihui/xaringan)<br>
+JR Ferrer-Paris 
+
+with the R packages:  
+
+[**xaringan**](https://github.com/yihui/xaringan) and 
 [gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
+
+Presentation and workshop material at: 
+
+[https://github.com/UNSW-codeRs/reproducible-R-code-for-research]
+
+
+

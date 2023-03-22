@@ -5,13 +5,14 @@
     <meta charset="utf-8" />
     <meta name="author" content="José R. Ferrer-Paris" />
     <meta name="author" content="(a.k.a. Jose Ferrer; JR)" />
-    <meta name="date" content="2023-03-17" />
-    <script src="presentation_files/header-attrs/header-attrs.js"></script>
-    <script src="presentation_files/htmlwidgets/htmlwidgets.js"></script>
-    <script src="presentation_files/viz/viz.js"></script>
-    <link href="presentation_files/DiagrammeR-styles/styles.css" rel="stylesheet" />
-    <script src="presentation_files/grViz-binding/grViz.js"></script>
+    <meta name="date" content="2023-03-22" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/viz/viz.js"></script>
+    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding/grViz.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/footer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -30,11 +31,52 @@ class: center, middle, inverse, title-slide
 ### (a.k.a. Jose Ferrer; JR)
 ]
 .date[
-### 2023-03-17
+### 2023-03-22
 ]
 
 ---
 
+layout: true
+
+&lt;div class="my-footer"&gt;&lt;span&gt;JR Ferrer-Paris / &lt;a href='https://github.com/UNSW-codeRs/reproducible-R-code-for-research'&gt;reproducible-R-code-for-research&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;!-- this adds the link footer to all slides, depends on my-footer class in css--&gt;
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 110px;
+height: 128px;
+z-index: 0;
+background-image: url(https://unsw-coders.netlify.app/home/welcome_files/logo.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+---
 
 
 
@@ -46,35 +88,43 @@ class: center, middle, inverse, title-slide
 &gt; Research is reproducible when others can reproduce the results of a scientific study given only the original data, code, and documentation 
 ([Alston &amp; Rick 2021](https://doi.org/10.1002/bes2.1801))
 
----
-
-.center[
-One step towards replicability ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753)): ]
-
-&lt;center&gt;
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2b4354444be7f86a3c76" style="width:47%;height:47%;"></div>
-<script type="application/json" data-for="htmlwidget-2b4354444be7f86a3c76">{"x":{"diagram":"graph G {\n    layout=dot\n    rankdir=\"TB\"\n    node [shape=\"box\" width=2]\n    subgraph cluster_repl { \n        label=\"Replicable research\"\n        subgraph cluster_orig { \n          label=\"Original research\"\n          A [label=\"Sampling\\nor Experimental\\nDesign\"]\n            subgraph cluster_repr { \n                bgcolor=\"lightblue\"\n                label=\"Reproducible research\"\n                labelloc=\"t\"\n                orig_data [label=\"Data\"]\n                orig_doc [shape=\"egg\" label=\"Documentation\"]\n                orig_code [label=\"Analysis (Code)\"]\n                orig_data -- orig_code //-- {orig_results}\n                orig_doc -- {orig_code} [style=\"dashed\"]\n                }\n            orig_results [label=\"Results\"]\n        }\n      subgraph cluster_repr1 { \n        labelloc=\"t\"\n        bgcolor=\"orange\"\n        label=\"Independent\\nReplication\"\n        B [label=\"New Sample\\nor Experiment\"]\n        new_data [label=\"New Data\"]\n        new_code [label=\"Same Analysis\" style=\"dashed\"]\n        new_data -- new_code  \n        new_results [label=\"Consistent Results\"]\n      }\n    }\n    new_code -- new_results \n    orig_code -- orig_results\n    //orig_code -- new_results\n    A -- orig_data\n    B -- new_data \n    // A -- B [style=\"dashed\"]\n    // new_data -- orig_code [style=\"dashed\"]\n    new_results -- orig_results [style=\"invisible\"]  \n    new_data -- orig_data [style=\"invisible\"]\n    new_code -- orig_code [style=\"invisible\"]\n    orig_code -- new_code [style=\"dashed\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-&lt;/center&gt;
-
----
-
-## Reproducible code
-
-#### Expectations: 
-
-&gt; Can be run by **any user** with **any data** and in **any computer/environment**.
-
 --
 
-#### More realistic: 
-
-&gt; Can be run by **a target user** with **well formatted data** and in **any reasonable computer/environment** by following **well documented instructions**.
+&gt; Is one step towards replicability of your research ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753))
 
 --
 
 #### More important: 
 
 &gt; It helps to be **more efficient** and **mitigate common problems** in research (and your research life...)
+
+&lt;!-- 
+# commenting this out to go straight to the point
+--- 
+--&gt;
+
+&lt;!-- .center[ --&gt;
+&lt;!-- One step towards replicability ([Essawy et al. 2020](https://doi.org/10.1016/j.envsoft.2020.104753)): ] --&gt;
+
+&lt;!-- &lt;center&gt; --&gt;
+&lt;!-- ```{r, echo=FALSE, out.width = "47%", out.height="47%"} --&gt;
+&lt;!-- grViz("../figs/replicable-research.dot") --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- &lt;/center&gt; --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Reproducible code --&gt;
+
+&lt;!-- #### Expectations:  --&gt;
+
+&lt;!-- &gt; Can be run by **any user** with **any data** and in **any computer/environment**. --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- #### More realistic:  --&gt;
+
+&lt;!-- &gt; Can be run by **a target user** with **well formatted data** and in **any reasonable computer/environment** by following **well documented instructions**. --&gt;
 
 ---
 class: inverse center middle
@@ -114,8 +164,8 @@ name: futureyou
 ### Research lifecycle
 
 &lt;center&gt;
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1025c4f8eee13fa43043" style="width:70%;height:60%;"></div>
-<script type="application/json" data-for="htmlwidget-1025c4f8eee13fa43043">{"x":{"diagram":"digraph G {\n    \n    node [shape=\"box\" width=2]\n    subgraph cluster_res { \n        label=\"Research Life Cycle\"\n        subgraph cluster_steps {\n          label=\"\"\n          pencolor=transparent\n          H [label=\"Hypothesis\" shape=\"ellipse\"]\n          A [label=\"Sampling\\nor Experimental\\nDesign\"]\n          orig_data [label=\"Data\"]\n          orig_results [label=\"Results\"]\n          orig_output [label=\"Outputs\"]\n          subgraph cluster_code { \n              bgcolor=\"lightblue\"\n              label=\"Code\"\n              labelloc=\"b\"\n              xplr_code [label=\"Exploratory analysis\"]\n              xpln_code [label=\"Explanatory analysis\"]\n              dviz_code [label=\"Visualisation of results\"]\n          }\n        }\n      { \n        node [color=\"orange\" style=\"filled\" shape=\"egg\"]\n        peer_review [label=\"Peer review\"]\n        supervisor [label=\"Supervisor\"]\n        collaborator [label=\"Collaborators\"]\n    }\n    }\n   \n    H -> A\n    H -> xpln_code\n    A -> orig_data -> xplr_code \n    xplr_code -> H [style=\"dashed\"]\n    xplr_code -> orig_results  [style=\"dashed\"]\n    orig_data -> xpln_code\n    xpln_code -> orig_results\n    orig_results -> {dviz_code; orig_output}\n    \n    supervisor -> H [style=\"dotted\"]\n    supervisor -> xpln_code [style=\"dotted\"]\n    // orig_results -> {collaborator,supervisor}\n    collaborator -> orig_data [style=\"dotted\"]\n    collaborator -> xplr_code [style=\"dotted\"]\n    orig_output -> peer_review\n    peer_review -> xpln_code [style=\"dotted\"]\n    peer_review -> dviz_code [style=\"dotted\"]\n    peer_review -> H [style=\"dotted\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fb52d1a93dfc99f380c8" style="width:70%;height:60%;"></div>
+<script type="application/json" data-for="htmlwidget-fb52d1a93dfc99f380c8">{"x":{"diagram":"digraph G {\n    \n    node [shape=\"box\" width=2]\n    subgraph cluster_res { \n        label=\"Research Life Cycle\"\n        subgraph cluster_steps {\n          label=\"\"\n          pencolor=transparent\n          H [label=\"Hypothesis\" shape=\"ellipse\"]\n          A [label=\"Sampling\\nor Experimental\\nDesign\"]\n          orig_data [label=\"Data\"]\n          orig_results [label=\"Results\"]\n          orig_output [label=\"Outputs\"]\n          subgraph cluster_code { \n              bgcolor=\"lightblue\"\n              label=\"Code\"\n              labelloc=\"b\"\n              xplr_code [label=\"Exploratory analysis\"]\n              xpln_code [label=\"Explanatory analysis\"]\n              dviz_code [label=\"Visualisation of results\"]\n          }\n        }\n      { \n        node [color=\"orange\" style=\"filled\" shape=\"egg\"]\n        peer_review [label=\"Peer review\"]\n        supervisor [label=\"Supervisor\"]\n        collaborator [label=\"Collaborators\"]\n    }\n    }\n   \n    H -> A\n    H -> xpln_code\n    A -> orig_data -> xplr_code \n    xplr_code -> H [style=\"dashed\"]\n    xplr_code -> orig_results  [style=\"dashed\"]\n    orig_data -> xpln_code\n    xpln_code -> orig_results\n    orig_results -> {dviz_code; orig_output}\n    \n    supervisor -> H [style=\"dotted\"]\n    supervisor -> xpln_code [style=\"dotted\"]\n    // orig_results -> {collaborator,supervisor}\n    collaborator -> orig_data [style=\"dotted\"]\n    collaborator -> xplr_code [style=\"dotted\"]\n    orig_output -> peer_review\n    peer_review -> xpln_code [style=\"dotted\"]\n    peer_review -> dviz_code [style=\"dotted\"]\n    peer_review -> H [style=\"dotted\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 &lt;/center&gt;
 
 
@@ -160,7 +210,15 @@ Your reproducible code will help **other user** to run the analysis again:
 
 - with available data from another source
 
+Your reproducible code will help **other user** to : 
 
+- combine steps of your analysis with their own steps,
+
+- explore alternative models,
+
+- customise outputs,
+
+- etc.
 
 ---
 class: inverse center middle
@@ -230,13 +288,16 @@ Your reproducible and portable code will help **other user** to run the analysis
 ---
 class: inverse center middle
 
-# Reproducible code can make you famous***
+# Well documented code will make you famous***
 
-.footnote[*** not really, but near enough...]
+.footnote[*** not really, but at least one step closer to fame...]
 
 ---
 layout: true
 ## Documentation
+
+&lt;div class="my-footer"&gt;&lt;span&gt;JR Ferrer-Paris / &lt;a href='https://github.com/UNSW-codeRs/reproducible-R-code-for-research'&gt;reproducible-R-code-for-research&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
 ---
 
 .pull-left[
@@ -282,7 +343,11 @@ Keep a good documentation for your future self!
 &lt;/center&gt;
 
 ---
-layout:false
+layout: true
+
+&lt;div class="my-footer"&gt;&lt;span&gt;JR Ferrer-Paris / &lt;a href='https://github.com/UNSW-codeRs/reproducible-R-code-for-research'&gt;reproducible-R-code-for-research&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+---
 
 ### Bonus benefits:
 
@@ -307,14 +372,60 @@ Your amazing documentation will help **other users** :
 
 
 ---
+class: inverse center middle
+
+# My recommendations
+
+---
+
+Make sure **your code**: 
+- is readable 
+- works with **new / modified data**
+- follows a clear structure or workflow
+- is modular and flexible 
+- is customizable
+
+--
+
+Make sure **your documentation** explains how the code:
+- works with specific operating systems + sofware versions
+- can be adapted to other OS + software versions
+- can be used as a template for alternative solutions 
+
+--
+
+Make sure **your documentation and code**:
+- work well together
+- have a clear purpose, inputs and outputs,
+- guide the target users from beginning to end
+
+
+---
+class: inverse center middle
+
+# How?
+
+---
+
 class: center, middle
 
 # Thanks!
 
-Slides created via the R packages:
+Slides created by 
 
-[**xaringan**](https://github.com/yihui/xaringan)&lt;br&gt;
+JR Ferrer-Paris 
+
+with the R packages:  
+
+[**xaringan**](https://github.com/yihui/xaringan) and 
 [gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
+
+Presentation and workshop material at: 
+
+[https://github.com/UNSW-codeRs/reproducible-R-code-for-research]
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

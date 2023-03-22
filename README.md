@@ -4,7 +4,7 @@ subtitle: "CES Skills Seminars"
 author: 
   - "José R. Ferrer-Paris" 
   - "(a.k.a. Jose Ferrer; JR)"
-date: '`r Sys.Date()`'
+date: 'March 2023'
 ---
 
 # R code for reproducible research
@@ -12,8 +12,12 @@ date: '`r Sys.Date()`'
 This repository contains:
 
 -   a [presentation](presentation/presentation.html) about the benefits of reproducible research for the author of the research,
--   a couple of figures in graphviz (`.dot`) format in folder [img](img/)
--   and a list of simple recommendations (this file)
+-   a couple of figures in graphviz (`.dot`) format in folder [figs](figs/)
+-   and a list of simple recommendations in two formats:
+    -   Markdown (this file)
+
+    -   a bunch of commented R scripts in the [Rscripts](Rscripts/00-outline.R) folder
+-   Miscellaneous files related to the `Rproject`, `git` and the `renv` packages
 
 ## My recommendations for reproducible research
 
@@ -44,6 +48,8 @@ Each script should have a header, a series of steps with comments and there shou
 The header should have a title/author/date, etc and possibly a bullet list of intended outputs, so when anybody opens the code they can immediately realise what is going on.
 
 Try to give a number or title to each step, so that there is a clear flow.
+
+> Make use of the outline features of RStudio and other IDEs to organise and navigate your code
 
 ### Scripts inputs and outputs
 
