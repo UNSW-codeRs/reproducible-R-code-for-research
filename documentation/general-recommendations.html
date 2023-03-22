@@ -10,7 +10,6 @@
 
 
 <meta name="author" content="José R. Ferrer-Paris" />
-<meta name="author" content="(a.k.a. Jose Ferrer; JR)" />
 
 
 <title>Preparing R code for reproducible research</title>
@@ -352,37 +351,113 @@ display: none;
 
 <h1 class="title toc-ignore">Preparing R code for reproducible
 research</h1>
-<h3 class="subtitle">CES Skills Seminars</h3>
+<h3 class="subtitle">General recommendations</h3>
 <h4 class="author">José R. Ferrer-Paris</h4>
-<h4 class="author">(a.k.a. Jose Ferrer; JR)</h4>
 <h4 class="date">March 2023</h4>
 
 </div>
 
 
-<div id="r-code-for-reproducible-research" class="section level1">
-<h1>R code for reproducible research</h1>
-<p>The first version of this repository was created for Skills seminar
-at the Centre for Ecosystem Science in UNSW, presented in March
-2023.</p>
-<p>This repository contains:</p>
+<div id="follow-suggested-best-practices" class="section level2">
+<h2>Follow suggested best practices</h2>
+<p>First take a look at suggested best practices for coding in R, for
+example these: <a href="https://www.r-bloggers.com/2018/09/r-code-best-practices/" class="uri">https://www.r-bloggers.com/2018/09/r-code-best-practices/</a></p>
+<p>It takes time to get used to all of these, don’t need to try to
+implement everything at once.</p>
+</div>
+<div id="general-recommendations" class="section level2">
+<h2>General recommendations</h2>
+<div id="know-your-tools" class="section level3">
+<h3>Know your tools</h3>
 <ul>
-<li>a <a href="presentation/presentation.html">presentation</a> about
-the benefits of reproducible research for the author of the
-research,</li>
-<li>a list of simple recommendations in different formats:
+<li>Integrated development environments
 <ul>
-<li><a href="documentation/general-recommendations.md">a Markdown file
-with general recommendations</a>,</li>
-<li><a href="documentation/specific-recommendations.Rmd">an Rmarkdown
-file with more specific recommendations</a>,</li>
-<li>a couple of commented R scripts in the <a href="Rscripts/01-data-download.R">Rscripts</a> folder for a short
-excercise on reproducibility of code</li>
+<li><a href="https://posit.co/products/open-source/rstudio/">RStudio</a>)</li>
+<li><a href="https://jupyter.org/">jupyter lab</a> !</li>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a>
+!</li>
 </ul></li>
-<li>Miscellaneous files related to the <code>Rproject</code>,
-<code>git</code> and the <code>renv</code> packages and a couple of
-figures in graphviz (<code>.dot</code>) format in folder <a href="figs/">figs</a></li>
+<li><a href="https://thedavidchen.github.io/post/rstudio-why-use-projects/">Use
+R-projects</a></li>
+<li>Packages:
+<ul>
+<li>environments (<code>renv</code>) : <a href="https://rstudio.github.io/renv/" class="uri">https://rstudio.github.io/renv/</a></li>
+<li>work directory (<code>here</code>) : <a href="https://here.r-lib.org/" class="uri">https://here.r-lib.org/</a></li>
+<li>utils for packages, etc.</li>
+</ul></li>
+<li>Containers !!</li>
 </ul>
+</div>
+<div id="input-data" class="section level3">
+<h3>Input data</h3>
+<ul>
+<li>Share your (raw) data (at least a sample dataset)</li>
+<li>Document data preparation and cleaning</li>
+<li>Foolproof data ingestion:
+<ul>
+<li>universal, simple formats if possible (e.g. <code>.csv</code>,
+<code>.txt</code>)</li>
+<li>use open access tools and libraries for more complex formats
+whenever possible (e.g. <code>sqlite</code>, <code>gdal</code>)</li>
+<li>follow data from downloading to final
+<code>data.frame</code>/<code>tibble</code></li>
+</ul></li>
+</ul>
+<p>More on this: Making your data and code open access / CES Skills
+Seminars 20-04-2023</p>
+</div>
+<div id="documentation" class="section level3">
+<h3>Documentation</h3>
+<ul>
+<li>README or DESCRIPTION file</li>
+<li>Comment your code:
+<ul>
+<li><p>Comments in R script,</p></li>
+<li><p>Documents or reports using R/Sweave and knit, Rmarkdown, Quarto,
+etc.</p></li>
+</ul></li>
+<li>Vignettes and tutorials</li>
+</ul>
+</div>
+<div id="modular-code" class="section level3">
+<h3>Modular code</h3>
+<ul>
+<li>Short R scripts with explicit inputs and outputs</li>
+<li>Save intermediate steps (Rdata or RDS files)</li>
+<li>Run Rscript or Background Jobs</li>
+<li>Use and reuse your functions !</li>
+<li>Write a package !!</li>
+</ul>
+</div>
+<div id="output-data-is-useful-for-other-people" class="section level3">
+<h3>Output data is useful for other people</h3>
+<ul>
+<li>Presentation of your data outputs<br />
+(i.e. images or <code>pdf</code> documents)
+<ul>
+<li><p>Useful for readers</p></li>
+<li><p>Reviews</p></li>
+</ul></li>
+<li>Fully automated reports (Sweave and Knitr!)</li>
+<li>Outputs and raw results
+<ul>
+<li><p>Might be useful for meta-analysis</p></li>
+<li><p>Tabular formats</p></li>
+<li><p>Structured text formats (Metadata, XML)</p></li>
+<li><p>Spatial data (raster, vector data)</p></li>
+</ul></li>
+</ul>
+<p>More on this: Making your data and code open access / CES Skills
+Seminars 20-04-2023</p>
+</div>
+<div id="document-your-journey" class="section level3">
+<h3>Document your journey</h3>
+<ul>
+<li>Tutorials / blogs</li>
+<li>Keep a change log: explain what and why (fixed errors, etc)</li>
+<li>Version control (e.g. git and GitHub!!)</li>
+</ul>
+</div>
 </div>
 
 
