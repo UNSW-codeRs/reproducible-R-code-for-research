@@ -1,0 +1,137 @@
+---
+title: "Preparing R code for reproducible research"
+subtitle: "Example code for plotting data"  
+author: 
+  - "José R. Ferrer-Paris" 
+date: 'March 2023'
+---
+
+This is an example Rmarkdown file with lots of comments and five steps, please see the presentation in the presentation folder of this repo and read the README file.
+
+With Rmarkdown, the comments, code and the output are knitted together.
+
+# Outline
+
+ - Preliminaries
+ - Step 1: Input - Read the data
+ - Step 2: Mofify data
+ - Step 3: Save modified data
+ - Step 4: Read the RDS file
+ - Step 5: Plot the data
+ - R session info and done !
+
+# Preliminaries
+
+This script read data prepared with the `01-data-download.R` script and outputs an image in pdf format.
+
+# Step 1: Data download
+ We want to download the FRED-MD dataset:
+ > FRED-MD ("Federal Reserve Economic Data Monthly Database") is a publicly available dataset. Originally designed for the analysis of ***big economic data***, the dataset contains more than one hundred features.
+
+```{r}
+fred.url <- 'https://files.stlouisfed.org/files/htdocs/fred-md/monthly/current.csv'
+```
+
+We will work in a temporal directory:
+```{r}
+my.temp.dir <- tempdir()
+```
+
+
+
+<div class="alert alert-warning">
+  <strong>Warning!</strong> I am using `tempdir()` here, but this might not always be a good idea !
+</div>
+
+
+We use `sprintf` to add the path of the temporal directory and the name of the output file: `raw-data.csv`,
+```{r}
+target.file <- sprintf("%s/raw-data.csv", my.temp.dir)
+```
+
+if file does not exists we download it:
+```{r}
+if (!file.exists(target.file)) {
+  # function download.file uses the best available method for each OS, test if this works for you:
+  download.file(url=fred.url, destfile=target.file)
+}
+```
+
+Now read the file:
+
+```{r}
+original.data <- read.csv(target.file)
+```
+
+
+# Step 2: Modify data
+
+We want to skip the first record and use the next 100 records from the table, if library `dplyr` is available we can use the `slice` function, otherwise we can use simply `head`
+
+```{r}
+if (require(dplyr)) {
+  ss.data <- original.data %>% 
+    slice(2:101)
+} else {
+  ss.data <- head(original.data[-1,],n=100)
+}
+```
+
+ We can check the dimensions of the data with `dim`
+
+```{r}
+# Before:
+dim(original.data)
+# After:
+dim(ss.data)
+```
+
+# Step 3: Save modified data
+ 
+If we want to reuse the data we save it here:
+
+```{r}
+target.file <- sprintf("%s/modified-data.rds", my.temp.dir)
+
+saveRDS(file=target.file,ss.data)
+```
+
+# Step 4: Read the data from the RDS file
+
+And then we load it with `readRDS`:
+
+```{r}
+fred.data.subset <- readRDS(file=target.file)
+```
+
+
+# Step 5: Plot the data
+
+We want to use ggplot2 to make cool graphics, the code will give an error if ggplot2 is not installed
+```{r}
+if (!require(ggplot2)) {
+  stop("Sorry, this code only works with the ggplot2 library")
+}
+```
+
+
+This is our code to make a very fancy plot of three important economic variables (?)
+
+```{r}
+ggplot(fred.data.subset) +
+  geom_point(aes(x=INDPRO, y=S.P.500, colour=RPI)) +
+  labs(title='Three very important economic variables',
+       subtitle='Data from the FRED-MD dataset') +
+  xlab("Industrial production") +
+  ylab("Stock Market") +
+  scale_colour_continuous("Personal\nIncome",type = "viridis") +
+  theme_linedraw()
+```
+
+
+# R session Info
+
+```{r}
+sessionInfo()
+```
+
