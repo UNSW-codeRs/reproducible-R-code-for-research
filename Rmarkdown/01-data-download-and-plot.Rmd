@@ -14,7 +14,7 @@ With Rmarkdown, the comments, code and the output are knitted together.
 
  - Preliminaries
  - Step 1: Input - Read the data
- - Step 2: Mofify data
+ - Step 2: Modify data
  - Step 3: Save modified data
  - Step 4: Read the RDS file
  - Step 5: Plot the data
