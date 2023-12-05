@@ -14,7 +14,7 @@ The first version of this repository was created for Skills seminar at the Centr
 Repository structure:
 
 -   folder `presentation` contains a [presentation](presentation/presentation.html) about the benefits of reproducible research for the author of the research,
--   folder `documentation` contains additional [markdown files](documentation/general-recommendations.md) with [general recommendations for reproducible code,
+-   folder `documentation` contains additional [markdown files](documentation/general-recommendations.md) with general recommendations for reproducible code,
 -   folder `Rscripts` contain an example of reproducible code for [downloading](Rscripts/01-data-download.R) and [plotting](Rscripts/02-plot-data.R) a sample dataset
 -   folder `Rmarkdown` contain the same example of reproducible code for downloading and plotting a sample dataset in a [single document](Rmarkdown/01-data-download-and-plot.Rmd)
 -   Miscellaneous files related to the `Rproject`, `git` and the `renv` packages and a couple of figures in graphviz (`.dot`) format in folder [figs](figs/)
